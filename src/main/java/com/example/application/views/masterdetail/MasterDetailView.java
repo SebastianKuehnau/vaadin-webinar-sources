@@ -1,5 +1,7 @@
 package com.example.application.views.masterdetail;
 
+import static com.vaadin.flow.i18n.I18NProvider.translate;
+
 import com.example.application.data.SamplePerson;
 import com.example.application.services.SamplePersonService;
 import com.vaadin.flow.component.UI;
@@ -28,7 +30,9 @@ import com.vaadin.flow.router.Menu;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.spring.data.VaadinSpringDataHelpers;
+
 import java.util.Optional;
+
 import org.springframework.data.domain.PageRequest;
 import org.springframework.orm.ObjectOptimisticLockingFailureException;
 
@@ -51,9 +55,8 @@ public class MasterDetailView extends Div implements BeforeEnterObserver {
     private TextField occupation;
     private TextField role;
     private Checkbox important;
-
-    private final Button cancel = new Button("Cancel");
-    private final Button save = new Button("Save");
+    private final Button cancel = new Button(translate("vaadin-button.element-10.text"));
+    private final Button save = new Button(translate("vaadin-button.element-9.text"));
 
     private final BeanValidationBinder<SamplePerson> binder;
 
@@ -82,7 +85,7 @@ public class MasterDetailView extends Div implements BeforeEnterObserver {
         grid.addColumn("occupation").setAutoWidth(true);
         grid.addColumn("role").setAutoWidth(true);
         LitRenderer<SamplePerson> importantRenderer = LitRenderer.<SamplePerson>of(
-                "<vaadin-icon icon='vaadin:${item.icon}' style='width: var(--lumo-icon-size-s); height: var(--lumo-icon-size-s); color: ${item.color};'></vaadin-icon>")
+                        "<vaadin-icon icon='vaadin:${item.icon}' style='width: var(--lumo-icon-size-s); height: var(--lumo-icon-size-s); color: ${item.color};'></vaadin-icon>")
                 .withProperty("icon", important -> important.isImportant() ? "check" : "minus").withProperty("color",
                         important -> important.isImportant()
                                 ? "var(--lumo-primary-text-color)"
@@ -91,7 +94,7 @@ public class MasterDetailView extends Div implements BeforeEnterObserver {
         grid.addColumn(importantRenderer).setHeader("Important").setAutoWidth(true);
 
         grid.setItems(query -> samplePersonService.list(
-                PageRequest.of(query.getPage(), query.getPageSize(), VaadinSpringDataHelpers.toSpringDataSort(query)))
+                        PageRequest.of(query.getPage(), query.getPageSize(), VaadinSpringDataHelpers.toSpringDataSort(query)))
                 .stream());
         grid.addThemeVariants(GridVariant.LUMO_NO_BORDER);
 
@@ -167,14 +170,14 @@ public class MasterDetailView extends Div implements BeforeEnterObserver {
         editorLayoutDiv.add(editorDiv);
 
         FormLayout formLayout = new FormLayout();
-        firstName = new TextField("First Name");
-        lastName = new TextField("Last Name");
-        email = new TextField("Email");
-        phone = new TextField("Phone");
-        dateOfBirth = new DatePicker("Date Of Birth");
-        occupation = new TextField("Occupation");
-        role = new TextField("Role");
-        important = new Checkbox("Important");
+        firstName = new TextField(translate("vaadin-text-field.first-name-1.label"));
+        lastName = new TextField(translate("vaadin-text-field.last-name-2.label"));
+        email = new TextField(translate("vaadin-text-field.email-3.label"));
+        phone = new TextField(translate("vaadin-text-field.phone-4.label"));
+        dateOfBirth = new DatePicker(translate("vaadin-date-picker.date-of-birth-5.label"));
+        occupation = new TextField(translate("vaadin-text-field.occupation-6.label"));
+        role = new TextField(translate("vaadin-text-field.role-7.label"));
+        important = new Checkbox(translate("vaadin-checkbox.important-8.label"));
         formLayout.add(firstName, lastName, email, phone, dateOfBirth, occupation, role, important);
 
         editorDiv.add(formLayout);

@@ -1,7 +1,7 @@
 package com.example.application.views.empty;
 
 import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.html.Span;
+import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.router.Menu;
 import com.vaadin.flow.router.Route;
 
@@ -9,6 +9,9 @@ import com.vaadin.flow.router.Route;
 @Route("empty")
 public class EmptyView extends Div {
     public EmptyView() {
-        add(new Span("Hello Empty World!"));
+        Image image = new Image();
+        image.setSrc("images/image.webp");
+        image.setAlt("");
+        add(image);
     }
 }
